@@ -9,10 +9,15 @@ public class Personagem : MonoBehaviour
 
     public Animator anim;
     public float Speed;
+    Rigidbody2D rig;
+    public float Forca;
+    public bool Pulando;
 
     // Start is called before the first frame update
     void Start()
     {
+        rig = GetComponent<Rigidbody2D>();
+        Pulando = false;
     }
 
     // Update is called once per frame
@@ -32,24 +37,22 @@ public class Personagem : MonoBehaviour
         anim.SetFloat("Speed",movimento.magnitude);
 
         transform.position = transform.position + movimento * Speed * Time.deltaTime;
+        
+        if (Input.GetKeyUp(KeyCode.Space) && Pulando == false)
+        {
+            rig.AddForce(transform.up * Forca);
+            Pulando = true;
+            anim.SetBool("Pulando", true);
+        }
     }
 
-    void OnTriggerEnter2D(Collider2D poita)
+    void OnTriggerEnter2D(Collider2D colisor)
     {
 
-        if (poita.CompareTag("Chão"))
+        if (colisor.CompareTag("Chão"))
         {
-            if (Input.GetKeyUp(KeyCode.Space))
-            {
-                
-            }
-        }
-        if (poita.CompareTag("Ar"))
-        {
-            if (Input.GetKeyUp(KeyCode.Space))
-            {
-                
-            }
+            Pulando = false;
+            anim.SetBool("Pulando",false );
         }
     }
 }
