@@ -6,6 +6,9 @@ TagManager:
   tags:
   - enimigo
   - "Ch\xE3o"
+  - inimigo
+  - Espada
+  - Vida
   layers:
   - Default
   - TransparentFX
